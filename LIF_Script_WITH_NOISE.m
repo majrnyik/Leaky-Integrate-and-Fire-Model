@@ -36,9 +36,9 @@ V (1) = V_0;                            % store V_0 in the first index of V
 
 %injected current
 I_inj = zeros(1, n_iter + 1);								 
-I_inj(1) = 0;                        						 % electrode current input --> 2e-9
-I_noise = 2e-9 .* random('Normal', 1, dt+1, [1, n_iter]);	 % initial current
-%I_noise = I_inj(1) .* randn(1, n_iter + 1); 				 % se n tem mean eh white noise (gaussian normal distr)
+I_inj(1) = 0;                        				% electrode current input --> 2e-9
+I_noise = 2e-9 .* random('Normal', 1, dt+1, [1, n_iter]);	% initial current
+%I_noise = I_inj(1) .* randn(1, n_iter + 1); 			% se n tem mean eh white noise (gaussian normal distr)
 
 %spike 
 time = linspace(0, dur, n_iter + 1);    % time vector of simulation
@@ -61,21 +61,21 @@ r_period = 0.002;                       % refractory period
 
 for i = 1 : n_iter
     
-    dV = ((EL - V(i) + I_inj(1).*R_m + I_noise(i).*R_m) .* dt) ./ tau;       % LIF equation w/ noise
+    dV = ((EL - V(i) + I_inj(1).*R_m + I_noise(i).*R_m) .* dt) ./ tau;       	% LIF equation w/ noise
 	V (i + 1) = V (i) + dV;                                             	% update
-    if (V (i + 1) > V_th)								                 	% check if potential is high enough for spike to occurr
-        if (n_spikes > 0)								                 	% check if spike has already occurred
-            if (time (i) >= (t_spike + r_period))		                 	% check if in refractory period							
-                V (i + 1) = V_reset;					                 	% reset voltage
-                t_spike = time (i);						                 	% mark spike time
+    if (V (i + 1) > V_th)							% check if potential is high enough for spike to occurr
+        if (n_spikes > 0)							% check if spike has already occurred
+            if (time (i) >= (t_spike + r_period))		                % check if in refractory period							
+                V (i + 1) = V_reset;					        % reset voltage
+                t_spike = time (i);						% mark spike time
                 V(i) = 0;
-                n_spikes = n_spikes+1;				                     	% increment number of spikes 
+                n_spikes = n_spikes+1;				                % increment number of spikes 
             end          
-        else 											                 	% no spike has occured 
-        	V (i + 1) = V_reset;						                 	% reset potential
+        else 									% no spike has occured 
+        	V (i + 1) = V_reset;						% reset potential
             V(i) = 0;
-            t_spike = time (i);							                 	% mark spike time
-        	n_spikes = n_spikes + 1;					                 	% increment number of spikes
+            t_spike = time (i);							% mark spike time
+        	n_spikes = n_spikes + 1;					% increment number of spikes
         end 
     end
 end
