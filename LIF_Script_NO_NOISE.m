@@ -2,7 +2,7 @@
 %	Leaky integrate-and-fire model without noise	
 %		
 
-%% CLEANUP
+% CLEANUP
 clear
 
 %constants
