@@ -11,7 +11,7 @@
 % I (t) = - (Vm(t)/Rm) = Cm(dVm/dt)
 % RI(t) = - Vm (t) = Omega or R*C (dVm/dt) where omega is R.Cm 
 
-%% CLEANUP
+% CLEANUP
 clear
 clc
 clf
